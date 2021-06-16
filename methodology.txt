@@ -1,0 +1,5 @@
+The development methodology that our group is going to use is the incremental development.
+We decided to use this methodology because the requirements of this project are clearly explained and understood.
+One of the characteristics of this methodology is that a project or software is split into different stages,
+which is what we are going to do in this class: first the front end, second the back end, and finally the database.
+In addition, since we are in a shorter semester, we are appling incremental development because it is used when there is a tight deadline or deadlines.
