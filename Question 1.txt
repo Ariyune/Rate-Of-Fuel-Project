@@ -1,0 +1,8 @@
+1. To design the app, we will be using asp.net and C# in order to create a website application that will basically allow a client to register/login, manage their profile, 
+and obtain a quote for their fuel based on information they enter, a database that will both store their information alongside their credentials/profile, and allow us to retrieve this information.
+It's important that we create an interface that the customer can easily navigate and login. This will probably take the form of a simple login screen when the website is accessed. If their username is not detected, they will be given the option to register. 
+There also will be a link underneath the login that leads to registration as well. 
+Afterwards, they can go ahead to edit their personal information/profile. When they want to get a quote, they'll access a fuel quote form in which all the info about fuel that the they needs can be filled out. This will make up the front end.
+The back end will have things that the user does not need to see, but is necessary to keep tabs on the user, and correctly calculate their fuel quote. This will draw from the database we create.
+Lastly, the database holds all this information, and we'll have a way for the backend to pull up information, in order to make the necessary calculations. 
+We'll either use MySQL or SQLite, but most likely the former, which gives a bit more capabilities in case we need them (and has a wider variety of supported datatypes). Both of these use SQL, which works well with asp.net.
