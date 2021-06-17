@@ -5,4 +5,4 @@ There also will be a link underneath the login that leads to registration as wel
 Afterwards, they can go ahead to edit their personal information/profile. When they want to get a quote, they'll access a fuel quote form in which all the info about fuel that the they needs can be filled out. This will make up the front end.
 The back end will have things that the user does not need to see, but is necessary to keep tabs on the user, and correctly calculate their fuel quote. This will draw from the database we create.
 Lastly, the database holds all this information, and we'll have a way for the backend to pull up information, in order to make the necessary calculations. 
-We'll either use MySQL or SQLite, but most likely the former, which gives a bit more capabilities in case we need them (and has a wider variety of supported datatypes). Both of these use SQL, which works well with asp.net.
+We'll use Microsoft SQL Server to create the database, as it pairs well with asp.net
