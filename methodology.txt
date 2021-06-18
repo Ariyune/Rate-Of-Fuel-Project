@@ -7,3 +7,4 @@ In the first stage, we will create the user interface in which the user will be 
 During the second stage we will create the back end in which we will receive the data from the user interface, validate it, and prepare to connect it to a database.
 In the third stage, our group is going to create a database with the given requirements.
 Lastly, during the final stage our group will create a pricing module that should be able to calculate the price per gallon based on the given formula.
+We will be using asp.net with C# to create our web application.
