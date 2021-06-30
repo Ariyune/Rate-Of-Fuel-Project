@@ -1,3 +1,4 @@
+//place all form values into variables
 const fuelform = document.querySelector('#fuel-form');
 const GallonsRequested = document.querySelector('#GallonsRequested');
 const DeliveryAddress = document.querySelector('#DeliveryAddress');
@@ -8,15 +9,17 @@ const table = document.getElementById('fuel-history');
 const msg = document.querySelector('.msg');
 let requestnum = 0;
 
-fuelform.addEventListener('submit', Submit);
+fuelform.addEventListener('submit', Submit); //create an eventListener to perform an action upon clicking submit
 function Submit(s) {
   s.preventDefault();
-  if (GallonsRequested.value === '') {
-    msg.classList.add('error');
-    msg.innerHTML = 'Please enter the number of gallons requested';
+  //if all fields not filled, display error message
+  if (GallonsRequested.value === '' || DeliveryAddress.value === '') {
+    msg.classList.add('error'); //creates a class called error, mostly for css styling an error message
+    msg.innerHTML = 'Please enter all fields';
 
-    setTimeout(()=> msg.remove(), 2000);
+    setTimeout(()=> msg.remove(), 3000);
   }
+  //everything filled out, log the history of previous fuel quotes and add to the table
   else {
     let row = table.insertRow(1);
     let cell1 = row.insertCell(0)
@@ -33,3 +36,4 @@ function Submit(s) {
     cell6.innerHTML = TotalAmountDue.value;
   }
 }
+console.log(table);
