@@ -74,3 +74,12 @@ td {
   color: white;
   padding-left: 5px;
 }
+.maintext {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+  font-size: xx-large;
+  font-weight: bolder;
+}

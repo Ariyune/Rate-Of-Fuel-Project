@@ -1,13 +1,22 @@
 //place all form values into variables
 const fuelform = document.querySelector('#fuel-form');
 const GallonsRequested = document.querySelector('#GallonsRequested');
+document.querySelector('#DeliveryAddress').value = '11906 Green Glade Drive'; //gets value for address from client profile
 const DeliveryAddress = document.querySelector('#DeliveryAddress');
 const DeliveryDate = document.querySelector('#DeliveryDate');
+document.querySelector('#SuggestedPriceperGallon').value = 2; //set placeholder price per gallon, since we aren't calculating
+                                                              //price module yet
 const SuggestedPriceperGallon = document.querySelector('#SuggestedPriceperGallon');
-const TotalAmountDue = document.querySelector('#TotalAmountDue');
 const table = document.getElementById('fuel-history');
 const msg = document.querySelector('.msg');
 let requestnum = 0;
+
+//Calculates the TotalAmountDue = GallonsRequested * SuggestedPriceperGallon upon entering info into GallonsRequested Field,
+//Formula is TotalAmountDue = GallonsRequested * 2 as a placeholder for now
+GallonsRequested.onkeyup = function () {
+  document.querySelector('#TotalAmountDue').value = document.querySelector('#GallonsRequested').value * document.querySelector('#SuggestedPriceperGallon').value;
+  const TotalAmountDue = document.querySelector('#TotalAmountDue');
+}
 
 fuelform.addEventListener('submit', Submit); //create an eventListener to perform an action upon clicking submit
 function Submit(s) {
@@ -36,4 +45,3 @@ function Submit(s) {
     cell6.innerHTML = TotalAmountDue.value;
   }
 }
-console.log(table);
