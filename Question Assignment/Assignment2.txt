@@ -2,4 +2,4 @@
 cause us any trouble and we had no difficulties making an interface in which the user can interact with. So far, we did not encounter
 any obstacles to change our design. Our group is working well with our current development methodology, which is incremental methodology,
 and do not find it necessary to change it. Everyone is doing their part in this first page and we will continue with incremental methodology.
-3. We use visual studio code to solve our problem. It help developer edit easily with highlight syntax, it also has many useful extension like live server which helping us see clearly the result on website when we changed our code. We divided into 3 parts: Danny Phan did “Fuel Quote Form and History”, Carlos Alvarado Ortuno did “Client Profile Management” and Dong Nguyen did “Login and Registration”. 
+3. We use HTML, CSS, javascript. We divided into 3 parts: Danny Phan did “Fuel Quote Form and History”, Carlos Alvarado Ortuno did “Client Profile Management” and Dong Nguyen did “Login and Registration”. 
