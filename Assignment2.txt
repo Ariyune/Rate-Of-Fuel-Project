@@ -1,0 +1,8 @@
+1. 
+2. Our design and development methodology have not changed since assignment one. Creating a front end for assignment two did not
+cause us any trouble and we had no difficulties making an interface in which the user can interact with. So far, we did not encounter
+any obstacles to change our design. Our group is working well with our current development methodology, which is incremental methodology,
+and do not find it necessary to change it. Everyone is doing their part in this first page and we will continue with incremental methodology.
+3.
+4.
+5.
