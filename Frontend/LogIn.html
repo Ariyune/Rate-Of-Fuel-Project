@@ -6,106 +6,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href = "StyleSheet1.css">
     <title>Login</title>
-   </head>
-  <body>
-      <header>
-      <div class="header-right"> 
-        <a href="profileDisplay.html">Profile Management</a>
-        <a href="HomePage.aspx"><img src= "icon.png"></a>
-        <a href="fuelquote.html">Fuel Quote</a>
-        <a href="AboutUs.html">About Us</a>
-      </div>
-    </header>
-  <div class="box">
-    <form id="login">
-      <div>
-        <p>
-          <label for="username"><b>Username: </b></label></p>
-        <p>
-          <input
-            class="input-field"
-            type="text"
-            id="username"
-            placeholder="Enter Username"
-            name="username"
-            required
-          />
-        </p>
+    <style>
+        .middle{
+    text-align: center;
+    margin: 24px 0 12px 0;
+    font-size: 18px;
+        }
+    </style>
+  </head>
+  <body class ="middle" >   
+         <div >
+            <div class="header-right">   
+                <a href="http://localhost:53974/HomePage"> 
+                <img src="https://lh3.googleusercontent.com/zWidiTTAO4rje3OKwmhuIY2a6uAZEetFnryAYANFq76aGNKh_KZJ1NDVpqzttQgRhVouvIqxzEhGSbGEAT1wjM_dQvG-5owvqxWHQKSCiDky5ezSgefav8z8CwdGbWMne1d-1a-5uQ=s200-p-k" width ="100" height="100"></a>
+            </div>      
+            <div class ="topnav">
+                <a href="http://localhost:53974/HomePage">Home </a>;
+                <a href="#">Our Products</a>
+                <a href="#">Price</a>
+                <a href="#">About Us</a>
+            </div>
+    </div>   
+      <div class="content">
+        <form id="login">
+            <div>
+                <p><label for="username"><b>Username: </b></label></p>
+                <p><input
+                    class="input-field"
+                    type="text"
+                    id="username"
+                    placeholder="Enter Username"
+                    name="username"
+                    required
+                  /></p>
 
-        <p>
-          <label for="password"><b>Password: </b></label></p>
+                <p><label for="password"><b>Password: </b></label></p>
+                <p><input
+                    class="input-field"
+                    type="password"
+                    id="password"
+                    placeholder="Enter Password"
+                    name="password"
+                    required
+                  /></p>
+                <p>
+                  <label><b>User Type:</b></label>
+                  <select name="usertype" id="usertype">
+                    <option value="customer">Customer</option>
+                    <option value="seller">Seller</option>
+                    <option value="supplier">Supplier</option>
+                  </select>
+                </p>
 
-        <p>
-          <input
-            class="input-field"
-            type="password"
-            id="password"
-            placeholder="Enter Password"
-            name="password"
-            required
-          />
-        </p>
-
-        <p>
-          <label><b>User Type:</b></label>
-          <select name="usertype" id="usertype">
-            <option value="customer">Customer</option>
-            <option value="employee">Employee</option>
-            <option value="supplier">Supplier</option>
-          </select>
-        </p>
-
-        <p>
-          <button onclick="AuthUser()" class="bigSigbutton">Login</button>
-        </p>
-
-        <p>
-          <a href="register.html">Register</a>
-        </p>
-      </div>
-    </form>
+                <p><button onclick="trytimes" class="Loginbutton">Login</button></p>
+        
+                <p> Need an account? <a href="register.html">Register</a> </p>
+            </div>
+        </form>
     </div>
+   </body>
+</html>
+
 
 
     <script>
+        var attempt = 3; //the number of attempts
 
-      function AuthUser() {
-        event.preventDefault();
-        document.getElementById("login").checkValidity();
-        document.getElementById("login").reportValidity();
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
-        const userType = document.getElementById("Usertype").value
-        if (username != "" && password != "") {
-          (async () => {
-            const rawResponse = await fetch(`${fetchLocation}/login`, {
-              method: "POST",
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ username, password, userType}),
-            });
-            const content = await rawResponse.json();
-
-            if (content.hasOwnProperty("success")) {
-              localStorage.setItem("username", username);
-              localStorage.setItem("userType", userType);
-              window.location.href = content.success;
-            } else if (content.hasOwnProperty("error")) {
-              alert(
-                "Error: Login failed\nUsername does not exist, or password was typed incorrectly."
-              );
+        function trytimes() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            if (username == "Forget" && password == "forget#123") {
+                alert("Login successfully");
+                window.location = "success.html"; // Redirecting to other page.
+                return false;
             }
-          })();
+            else {
+                attempt--;// Decrementing by one.
+                alert("You have left " + attempt + " attempt;");
+                // Disabling fields after 3 attempts.
+                if (attempt == 0) {
+                    document.getElementById("username").disabled = true;
+                    document.getElementById("password").disabled = true;
+                    document.getElementById("submit").disabled = true;
+                    return false;
+                }
+            }
         }
-      }
 
-      function logout() {
-              localStorage.removeItem("username");
-              localStorage.removeItem("usertype");
-              window.location.href = "login.html";
-          }
+        function logout() {
+            localStorage.removeItem("username");
+            localStorage.removeItem("usertype");
+            window.location.href = "login.html";
+        }
     </script>
-  </body>
-</html>
