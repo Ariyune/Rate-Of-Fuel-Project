@@ -2,7 +2,7 @@
 const fuelform = document.querySelector('#fuel-form');
 const GallonsRequested = document.querySelector('#GallonsRequested');
 document.querySelector('#DeliveryAddress').value = 'Random Address 12345'; //gets value for address from client profile
-const DeliveryAddress = document.querySelector('#firstAddress');
+const DeliveryAddress = document.querySelector('#DeliveryAddress');
 const DeliveryDate = document.querySelector('#DeliveryDate');
 document.querySelector('#SuggestedPriceperGallon').value = 2; //set placeholder price per gallon, since we aren't calculating
                                                               //price module yet
