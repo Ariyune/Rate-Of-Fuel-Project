@@ -83,3 +83,8 @@ td {
   font-size: xx-large;
   font-weight: bolder;
 }
+.header-right{
+    float:none;
+    text-align:right;
+    color: white;
+}
