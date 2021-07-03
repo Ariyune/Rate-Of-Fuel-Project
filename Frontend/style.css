@@ -88,3 +88,8 @@ td {
     text-align:right;
     color: white;
 }
+.middle{
+    text-align: center;
+    margin: 24px 0 12px 0;
+    font-size: 18px;
+}
