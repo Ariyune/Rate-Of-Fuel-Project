@@ -12,7 +12,7 @@
       <div class = "topnav"> <!--top navigation bar-->
         <a href="profileDisplay.html">Profile Management</a>
         <a href="LogIn.html"><img src= "icon.png"></a>
-        <a href="fuelquote.html">Fuel Quote</a>
+        <a href="fuelquote.php">Fuel Quote</a>
         <a href="AboutUs.html">About Us</a>
       </div>
       <h1>Fuel Quote</h1>
@@ -67,6 +67,9 @@
       </table>
     </div>
     <script src="main.js"></script> <!--links to javascript file-->
+
+    <?php
+     ?>
 
   </body>
 
