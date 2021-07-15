@@ -100,6 +100,14 @@
         }
     }
 
+    function sendToDatabase() {
+        //preparing to persist to database
+        /*
+        $db = mysqli_connect("hostname", "username", "password", "database");
+        $query = "Query goes here";
+        $result = mysqli_query($db, $query); */
+    }
+
     $ManageRequest = new ValidateProfile($_POST["fullName"], $_POST["firstAddress"], $_POST["city"], $_POST["State"], $_POST["ZipCode"]);
     $NM = $ManageRequest->validateName();
     $FA = $ManageRequest->validateAddress();
@@ -108,6 +116,7 @@
     $ZC = $ManageRequest->validateZip();
     if($ManageRequest->AllFieldsValid($NM,$FA, $CT, $ST, $ZC)) {
         echo "Correct inputs <br>"; 
+        //sendToDatabase();
     } 
 
     ?>
