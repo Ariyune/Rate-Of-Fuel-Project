@@ -79,7 +79,7 @@
 
         $.ajax({
           type: "post",
-          url: "fuelquotevalidate.php",
+          url: "ValidateFuelQuote.php",
           data: $("#fuel-form").serialize(),
           success: function(data) {
 
