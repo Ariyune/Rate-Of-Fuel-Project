@@ -37,7 +37,9 @@ label {
 
 .flex-child {
     flex: 1;
+    color: red;
 }
+
 
 .flex-child:first-child {
     margin-right: 20px;
