@@ -79,7 +79,7 @@
 
         $.ajax({
           type: "post",
-          url: "fuelquotevalidate.php",
+          url: "CallValidateFuelQuote.php",
           data: $("#fuel-form").serialize(),
           success: function(data) {
 
@@ -88,8 +88,8 @@
             }
 
             else {
-              $(".error").empty(); //clears out error message above
-              $(".error").append(data);
+                $(".error").empty(); //clears out error message above
+                $(".error").append(data);
             }
           }
         });
@@ -98,7 +98,7 @@
       function ajaxUpdateFuelHistory () {
         $.ajax({
           type: "post",
-          url: "fuelquotehistory.php",
+          url: "FuelQuoteHistoryEntry.php",
           data: $("#fuel-form").serialize(),
           success: function(data) {
             $("#fuel-history").append(data);
