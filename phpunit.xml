@@ -13,6 +13,8 @@
               processUncoveredFiles="true">
         <include>
             <directory>./ValidateFuelQuote.php</directory>
+            <directory>./CallValidateFuelQuote.php</directory>
+            <directory>./FuelQuoteHistoryEntry.php</directory>
         </include>
     </coverage>
 </phpunit>

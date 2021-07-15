@@ -79,4 +79,10 @@ class ValidateFuelQuoteTest extends TestCase
         $this->assertTrue($validinput);
         $this->assertFalse($invalidinput);
     }
+
+    public function testAddEntry()
+    {
+        $result = AddEntry(1,2,3,4,5);
+        $this->assertEmpty ($result);
+    }
 }
