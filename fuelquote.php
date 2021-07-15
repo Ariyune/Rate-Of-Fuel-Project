@@ -8,10 +8,11 @@
   </head>
 
   <body>
+
     <header>
       <div class = "topnav"> <!--top navigation bar-->
         <a href="profileDisplay.html">Profile Management</a>
-        <a href="LogIn.html"><img src= "icon.png"></a>
+        <a href="index.html"><img src= "icon.png"></a>
         <a href="fuelquote.php">Fuel Quote</a>
         <a href="AboutUs.html">About Us</a>
       </div>
@@ -19,32 +20,33 @@
     </header>
 
     <div class="form"> <!--contains all form fields-->
-      <form id="fuel-form">
+      <form id="fuel-form" method = "post">
           <fieldset> <!--allows for the creation of a box around the form-->
             <h2>Fuel Quote Request Form</h2>
-            <div class = "msg"></div>
+            <div class = "error">
+            </div>
             <div>
               <label>Gallons Requested: </label>
-              <input type="number" id = "GallonsRequested" required>
+              <input type="number" id = "GallonsRequested" name = "GallonsRequested" required>
             </div>
             <div>
               <label>Delivery Address: </label>
-              <input type="text" id = "DeliveryAddress" readonly>
+              <input type="text" id = "DeliveryAddress" name = "DeliveryAddress" readonly value = "Random Address 12345">
             </div>
             <div>
               <label>Delivery Date: </label>
-              <input type="date" id = "DeliveryDate">
+              <input type="date" id = "DeliveryDate" name = "DeliveryDate">
             </div>
             <div>
               <label>Suggested Price / gallon: </label>
-              <input type="number" id = "SuggestedPriceperGallon" readonly>
+              <input type="number" id = "SuggestedPriceperGallon" name = "SuggestedPriceperGallon" readonly value = 2>
             </div>
             <div>
               <label>Total Amount Due: </label>
-              <input type="number" id= "TotalAmountDue" readonly>
+              <input type="number" id= "TotalAmountDue" name= "TotalAmountDue" readonly value = 4>
             </div>
             <div class = "button">
-              <input type = "submit" class = "btn" value = "Submit" >
+              <input type = "submit" class = "submitbtn" name = "submit" value = "Submit" >
             </div>
           </fieldset>
       </form>
@@ -56,7 +58,6 @@
           <caption><h2>Fuel Quote History</h2></caption>
           <tr>
             <!--headers-->
-            <th>Request Number</th>
             <th>Gallons Requested</th>
             <th>Delivery Address</th>
             <th>Delivery Date</th>
@@ -66,10 +67,46 @@
         </thead>
       </table>
     </div>
-    <script src="main.js"></script> <!--links to javascript file-->
 
-    <?php
+     <?php class PricingModule {
+     } //not implemented yet; Last assignment
      ?>
+
+     <script src = "jquery.js"></script>
+     <script>
+      $(".submitbtn").click(function(e) {
+        e.preventDefault();
+
+        $.ajax({
+          type: "post",
+          url: "fuelquotevalidate.php",
+          data: $("#fuel-form").serialize(),
+          success: function(data) {
+
+            if (data == true) {
+              ajaxUpdateFuelHistory ();
+            }
+
+            else {
+              $(".error").empty(); //clears out error message above
+              $(".error").append(data);
+            }
+          }
+        });
+      });
+
+      function ajaxUpdateFuelHistory () {
+        $.ajax({
+          type: "post",
+          url: "fuelquotehistory.php",
+          data: $("#fuel-form").serialize(),
+          success: function(data) {
+            $("#fuel-history").append(data);
+          }
+        });
+      }
+
+     </script>
 
   </body>
 
