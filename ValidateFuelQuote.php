@@ -17,12 +17,12 @@ class ValidateFuelQuote {
 
   public function validateGallonsRequested () {
       if (empty($this->GallonsRequested)) {
-          echo "The Gallons Requested Field is empty. <br>";
+          echo "The Gallons Requested Field is required. <br>";
           return false;
       }
       else {
           if (!filter_var($this->GallonsRequested, FILTER_VALIDATE_INT)) {
-              echo "Please enter a number value into the Gallons Requested Field. <br>";
+              echo "Please enter a numeric value into the Gallons Requested Field. <br>";
               return false;
           }
           else {
@@ -35,6 +35,10 @@ class ValidateFuelQuote {
     if (empty($this->DeliveryAddress)) {
       echo "The Delivery Address is empty.<br>";
       return false;
+    }
+    else if (!preg_match("/^[a-zA-Z\d\s]+$/", $this->DeliveryAddress)) {
+        echo "Delivery Address input is invalid, please enter alphanumeric characters. <br>";
+        return false;
     }
     else {
       return true;

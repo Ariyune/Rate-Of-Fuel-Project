@@ -11,29 +11,51 @@ class ValidateProfileManageTest extends TestCase
         //enter in valid values, should return a true boolean
         $ProfileManage = new ValidateProfileManage ("Carlos", "12345 Random Address", "temp", "Houston", "TX", 12345);
         $resultvalidateName = $ProfileManage->validateName();
-        $resultvalidateAddress = $ProfileManage->validateAddress();
+        $resultvalidatefirstAddress = $ProfileManage->validatefirstAddress();
+        $resultvalidatesecondAddress = $ProfileManage->validatesecondAddress();
         $resultvalidateCity = $ProfileManage->validateCity();
         $resultvalidateState = $ProfileManage->validateState();
         $resultvalidateZip = $ProfileManage->validateZip();
 
         $this->assertTrue($resultvalidateName);
-        $this->assertTrue($resultvalidateAddress);
+        $this->assertTrue($resultvalidatefirstAddress);
+        $this->assertTrue($resultvalidatesecondAddress);
         $this->assertTrue($resultvalidateCity);
         $this->assertTrue($resultvalidateState);
         $this->assertTrue($resultvalidateZip);
+    }
+
+    public function testinvalidentryProfileManage() //checks invalid entries return no value (expected)
+    {
+        //input in character, symbol, symbol, character, and character, all of which are invalid; should return empty
+        $ProfileManage = new ValidateProfileManage ("@", "#", "#", "#", "TX", "^");
+
+        $resultvalidateName = $ProfileManage->validateName();
+        $resultvalidatefirstAddress = $ProfileManage->validatefirstAddress();
+        $resultvalidatesecondAddress = $ProfileManage->validatesecondAddress();
+        $resultvalidateCity = $ProfileManage->validateCity();
+        $resultvalidateZip = $ProfileManage->validateZip();
+
+        $this->assertFalse($resultvalidateName);
+        $this->assertFalse($resultvalidatefirstAddress);
+        $this->assertFalse($resultvalidatesecondAddress);
+        $this->assertFalse($resultvalidateCity);
+        $this->assertFalse($resultvalidateZip);
     }
 
     public function testemptyEntries() //checks if empty entries returns no value (expected)
     {
         $ProfileManage = new ValidateProfileManage (null, null, null, null, null, null);
         $resultvalidateName = $ProfileManage->validateName();
-        $resultvalidateAddress = $ProfileManage->validateAddress();
+        $resultvalidatefirstAddress = $ProfileManage->validatefirstAddress();
+        $resultvalidatesecondAddress = $ProfileManage->validatesecondAddress();
         $resultvalidateCity = $ProfileManage->validateCity();
         $resultvalidateState = $ProfileManage->validateState();
         $resultvalidateZip = $ProfileManage->validateZip();
 
         $this->assertFalse($resultvalidateName);
-        $this->assertFalse($resultvalidateAddress);
+        $this->assertFalse($resultvalidatefirstAddress);
+        $this->assertTrue($resultvalidatesecondAddress);
         $this->assertFalse($resultvalidateCity);
         $this->assertFalse($resultvalidateState);
         $this->assertFalse($resultvalidateZip);
@@ -43,19 +65,21 @@ class ValidateProfileManageTest extends TestCase
     {
         $ProfileManageValid = new ValidateProfileManage ("Carlos", "12345 Random Address", "temp", "Houston", "TX", 12345);
         $N = $ProfileManageValid->validateName();
-        $A = $ProfileManageValid->validateAddress();
+        $A = $ProfileManageValid->validatefirstAddress();
+        $SA = $ProfileManageValid->validatesecondAddress();
         $C = $ProfileManageValid->validateCity();
         $S = $ProfileManageValid->validateState();
         $Z = $ProfileManageValid->validateZip();
-        $validinput = $ProfileManageValid->AllFieldsValid($N,$A,$C,$S,$Z);
+        $validinput = $ProfileManageValid->AllFieldsValid($N,$A,$SA,$C,$S,$Z);
 
         $ProfileManageInvalid = new ValidateProfileManage (null, null, null, null, null, null);
         $N1 = $ProfileManageInvalid->validateName();
-        $A1 = $ProfileManageInvalid->validateAddress();
+        $A1 = $ProfileManageInvalid->validatefirstAddress();
+        $A11 = $ProfileManageInvalid->validatesecondAddress();
         $C1 = $ProfileManageInvalid->validateCity();
         $S1 = $ProfileManageInvalid->validateState();
         $Z1 = $ProfileManageInvalid->validateZip();
-        $invalidinput = $ProfileManageInvalid->AllFieldsValid($N1,$A1,$C1,$S1,$Z1);
+        $invalidinput = $ProfileManageInvalid->AllFieldsValid($N1,$A1,$A11,$C1,$S1,$Z1);
 
         $this->assertTrue($validinput);
         $this->assertFalse($invalidinput);
@@ -63,31 +87,18 @@ class ValidateProfileManageTest extends TestCase
 
     public function testlengthFieldsValid() {
         //test first address length
-        $ProfileManageTooLong = new ValidateProfileManage ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "a", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "TX", 1111111111);
+        $ProfileManageTooLong = new ValidateProfileManage ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "TX", 1111111111);
         $resultvalidateName = $ProfileManageTooLong->validateName();
-        $resultvalidateAddress = $ProfileManageTooLong->validateAddress();
+        $resultvalidatefirstAddress = $ProfileManageTooLong->validatefirstAddress();
+        $resultvalidatesecondAddress = $ProfileManageTooLong->validatesecondAddress();
         $resultvalidateCity = $ProfileManageTooLong->validateCity();
-        $resultvalidateState = $ProfileManageTooLong->validateState();
         $resultvalidateZip = $ProfileManageTooLong->validateZip();
 
         $this->assertFalse($resultvalidateName);
-        $this->assertFalse($resultvalidateAddress);
+        $this->assertFalse($resultvalidatefirstAddress);
+        $this->assertFalse($resultvalidatesecondAddress);
         $this->assertFalse($resultvalidateCity);
         $this->assertFalse($resultvalidateZip);
-
-        //test second address length
-        $ProfileManageTooLong->FirstAddress = "a";
-        $ProfileManageTooLong->SecondAddress = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-        $resultvalidateAddress = $ProfileManageTooLong->validateAddress();
-
-        $this->assertFalse($resultvalidateAddress);
-
-        //test both address length
-        $ProfileManageTooLong->FirstAddress = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-        $ProfileManageTooLong->SecondAddress = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-        $resultvalidateAddress = $ProfileManageTooLong->validateAddress();
-
-        $this->assertFalse($resultvalidateAddress);
 
         $ProfileManageTooShort = new ValidateProfileManage ("a", "a", "a", "a", "TX", 1111);
         $resultvalidateZip1 = $ProfileManageTooShort->validateZip();
