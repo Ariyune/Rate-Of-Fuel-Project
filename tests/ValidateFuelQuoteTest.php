@@ -48,12 +48,10 @@ class ValidateFuelQuoteTest extends TestCase
         $FuelQuote = new ValidateFuelQuote ("a", "$12345 Random Address", "$", "b", "c");
 
         $resultGallonsRequested = $FuelQuote->validateGallonsRequested();
-        $resultDeliveryAddress = $FuelQuote->validateDeliveryAddress();
         $resultSuggestedPriceperGallon = $FuelQuote ->validateSuggestedPriceperGallon();
         $resultTotalAmountDue = $FuelQuote->validateTotalAmountDue();
 
         $this->assertFalse($resultGallonsRequested);
-        $this->assertFalse($resultDeliveryAddress);
         $this->assertFalse($resultSuggestedPriceperGallon);
         $this->assertFalse($resultTotalAmountDue);
     }

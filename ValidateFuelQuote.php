@@ -37,13 +37,7 @@ class ValidateFuelQuote {
       return false;
     }
     else {
-      if (preg_match("/[^A-Za-z0-9\s]/", $this->DeliveryAddress)) { //checks for alphanumeric + whitespaces
-        echo "Please enter a proper address in Profile Management. <br>";
-        return false;
-      }
-      else {
-          return true;
-      }
+      return true;
     }
   }
 
