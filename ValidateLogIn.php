@@ -1,5 +1,5 @@
 <?php
-    class ValidateLogIn{
+class ValidateLogIn{
     public  $Username;
     public  $Password;
 
@@ -9,21 +9,33 @@
     }
 
     public function validateUsername() {
-          if (empty($aUsername)){
-              echo "Username is empty. <br>";
-              return false;
-          }
-          else{
-              return true;
-          }
+        if (empty($this->Username)){
+            echo "Username is empty. <br>";
+            return false;
+        }
+        else{
+            return true;
+        }
     }
+
     public function validatePassword() {
-          if (empty($aPassword)){
-              echo "Password is empty. <br>";
-              return false;
-          }
-          else{
-              return true;
-          }
+        if (empty($this->Password)){
+            echo "Password is empty. <br>";
+            return false;
+        }
+        else{
+            return true;
+        }
     }
-    ?>
+
+    public function validateAllFields ($UsernameValid, $PasswordValid) {
+        if ($UsernameValid && $PasswordValid) {
+            echo true;
+            return true;
+        }
+        else {
+            echo false;
+            return false;
+        }
+    }
+}

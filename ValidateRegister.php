@@ -1,41 +1,42 @@
-<?php 
+<?php
 
 class ValidateRegister{
     public  $Username;
     public  $Password;
-    public  $Password_confirm;
 
-    public function _construct($aUsername, $aPassword,$aPassword_confirm){
+    public function __construct($aUsername, $aPassword){
         $this->Username = $aUsername;
         $this->Password = $aPassword;
-        $this->Password_confirm = $aPassword_confirm;
     }
 
     public function validateUsername() {
-        if (empty($aUsername)){
-            if ($aUsername == ""){
-                echo "Username is empty. <br>";
-                return false;
-            }
-            else{
-                return true;
-            }
+        if (empty($this->Username)){
+            echo "Username is empty. <br>";
+            return false;
+        }
+        else{
+            return true;
         }
     }
+
     public function validatePassword() {
-        if (empty($aPassword)){
-            if ($aPassword == ""){
-                echo "Password is empty. <br>";
-                return false;
-            }
-            else{
-                return true;
-            }
+        if (empty($this->Password)){
+            echo "Password is empty. <br>";
+            return false;
+        }
+        else{
+            return true;
         }
     }
-    public function validateConfirmation(){
-        if ($aPassword_confirm) != ($Password){
-            die ("Password Confirmation is not correct");
+
+    public function validateAllFields ($UsernameValid, $PasswordValid) {
+        if ($UsernameValid && $PasswordValid) {
+            echo true;
+            return true;
+        }
+        else {
+            echo false;
+            return false;
         }
     }
-?>
+}

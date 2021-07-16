@@ -13,7 +13,7 @@
         <div class="topnav">
             <!--top navigation bar-->
             <a href="profileDisplay.html">Profile Management</a>
-            <a href="index.html"><img src="icon.png"></a>
+            <a href="index.php"><img src="icon.png"></a>
             <a href="fuelquote.php">Fuel Quote</a>
             <a href="AboutUs.html">About Us</a>
         </div>
@@ -22,14 +22,16 @@
     <h1 style="text-align: center;">Register</h1>
 
     <div class="information">
-        <form>
+        <form id="register" action="index.php" method = "post">
+            <div class="error">
+            </div>
             <h3 style="font-size: x-large;">Input New Login Information</h3>
             <div class="flex-container">
                 <div class="flex-child">
                     <label for="usname"><b>Username: </b></label>
                 </div>
                 <div class="flex-child">
-                    <input type="text" id="usname" required>
+                    <input type="text" id="usname" name = "username" required>
                 </div>
             </div>
 
@@ -38,16 +40,40 @@
                     <label for="pword"><b>Password: </b></label>
                 </div>
                 <div class="flex-child">
-                    <input type="text" id="pword" minlength="5" required>
+                    <input type="text" id="pword" name = "password" required>
                 </div>
             </div>
 
             <div class="button">
-                <button type="submit" class="btn" value="Submit" formaction="LogIn.html">
-                    Submit
-                </button>
+                <input type="submit" class = "registerbtn" name = "registerbtn" value="Submit">
             </div>
         </form>
     </div>
+
+    <script src = "jquery.js"></script>
+    <script>
+     $(".registerbtn").click(function(e) {
+       e.preventDefault();
+
+       $.ajax({
+         type: "post",
+         url: "CallValidateRegister.php",
+         data: $("#register").serialize(),
+         success: function(data) {
+
+           if (data == true) {
+              $("#register").submit();
+           }
+
+           else {
+               $(".error").empty(); //clears out error message above
+               $(".error").append(data);
+           }
+         }
+       });
+     });
+
+    </script>
+
 </body>
 </html>
