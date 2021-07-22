@@ -12,7 +12,7 @@
     <header>
         <div class="topnav">
             <!--top navigation bar-->
-            <a href="profileDisplay.html">Profile Management</a>
+            <a href="profileDisplay.php">Profile Management</a>
             <a href="index.php"><img src="icon.png"></a>
             <a href="fuelquote.php">Fuel Quote</a>
             <a href="AboutUs.html">About Us</a>
