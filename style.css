@@ -5,6 +5,7 @@
 }
 /*top navigation bar, centers*/
 .topnav {
+  margin-top: 40px;
   text-align: center;
   overflow: hidden;
 }
@@ -32,6 +33,14 @@ body {
 }
 /*resets form input values to go to the left*/
 form {
+  display:inline-block;
+  text-align: left;
+}
+.SuggestedPriceperGallon {
+  display:inline-block;
+  text-align: left;
+}
+.TotalAmountDue {
   display:inline-block;
   text-align: left;
 }
@@ -66,6 +75,12 @@ td {
 /*aligns button in the center*/
 .button {
   text-align: center;
+}
+.getquotebtn {
+  margin-right:8px;
+}
+.submitbtn {
+  margin-left:10px;
 }
 /*edits error message after not filling in fields*/
 .error {

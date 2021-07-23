@@ -4,6 +4,7 @@
 }
   /*top navigation bar, centers*/
 .topnav {
+    margin-top: 40px;
     text-align: center;
     overflow: hidden;
 }

@@ -1,3 +1,9 @@
+<?php
+  if(!isset($_SESSION))
+  {
+      session_start();
+  }
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -9,12 +15,18 @@
 
   <header>
     <div class = "topnav"> <!--top navigation bar-->
-      <a href="profileDisplay.php">Profile Management</a>
-      <a href="index.php"><img src= "icon.png"></a>
-      <a href="fuelquote.php">Fuel Quote</a>
-      <a href="AboutUs.html">About Us</a>
+      <?php if(isset($_SESSION["useruid"])) {
+              echo "<a href='profileDisplay.php'>Profile Management</a>";
+              echo "<a href='AboutUs.php'><img src= 'icon.png'></a>";
+              echo "<a href='fuelquote.php'>Fuel Quote</a>";
+              echo "<a href='logout.php'>Logout</a>";
+            }
+            else {
+              echo  "<a href='index.php'>Log in</a>";
+            }
+      ?>
     </div>
-  </header>
+   </header>
 
   <body>
     <div class = "maintext">

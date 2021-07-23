@@ -1,6 +1,7 @@
 <?php
-  require_once("ValidateLogIn.php");
-  $LogIn = new ValidateLogIn ($_POST["usname"], $_POST["pword"]);
+  require_once("ValidateRegisterandLogin.php");
+  $LogIn = new ValidateRegisterandLogin ($_POST["usname"], $_POST["pword"]);
   $UserValid = $LogIn->validateUsername();
   $PassValid = $LogIn->validatePassword();
-  $LogIn->validateAllFields ($UserValid, $PassValid);
+  $LoginUserValid = $LogIn->validateLoginUsername();
+  $LogIn->validateLoginFields ($UserValid, $PassValid, $LoginUserValid); //validates and logins user if found

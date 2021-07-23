@@ -9,7 +9,7 @@ class ValidateFuelQuoteTest extends TestCase
     public function testValidEntries() //checks if having valid entries sets boolean return value to true for respective form field
     {
         //enter in valid values, should return a true boolean
-        $FuelQuote = new ValidateFuelQuote(1,"12345 Random Address",3,4,5);
+        $FuelQuote = new ValidateFuelQuote(1,"12345 Random Address","2019-08-10",4,5);
 
         $resultGallonsRequested = $FuelQuote->validateGallonsRequested();
         $resultDeliveryAddress = $FuelQuote->validateDeliveryAddress();
@@ -45,7 +45,7 @@ class ValidateFuelQuoteTest extends TestCase
     public function testinvalidentryGallonsRequested() //checks invalid entries return no value (expected)
     {
         //input in character, symbol, symbol, character, and character, all of which are invalid; should return empty
-        $FuelQuote = new ValidateFuelQuote ("a", "$12345 Random Address", "$", "b", "c");
+        $FuelQuote = new ValidateFuelQuote ("a", "$12345 Random Address", "2019-08-10", "b", "c");
 
         $resultGallonsRequested = $FuelQuote->validateGallonsRequested();
         $resultDeliveryAddress = $FuelQuote->validateDeliveryAddress();
@@ -60,7 +60,7 @@ class ValidateFuelQuoteTest extends TestCase
 
     public function testAllFieldsValid()
     {
-        $FuelQuoteValid = new ValidateFuelQuote(1,"12345 Random Address",3,4,5);
+        $FuelQuoteValid = new ValidateFuelQuote(1,"12345 Random Address","2019-08-10",4,5);
         $GR = $FuelQuoteValid->validateGallonsRequested();
         $DA = $FuelQuoteValid->validateDeliveryAddress();
         $DD = $FuelQuoteValid->validateDeliveryDate();
@@ -68,7 +68,15 @@ class ValidateFuelQuoteTest extends TestCase
         $TAD = $FuelQuoteValid->validateTotalAmountDue();
         $validinput = $FuelQuoteValid->AllFieldsValid($GR,$DA,$DD,$PPpG,$TAD);
 
-        $FuelQuoteInvalid = new ValidateFuelQuote ("a", "$12345 Random Address", "$", "b", "c");
+        $this->assertEquals("12345 Random Address", $validinput);
+
+        //test that incorrect delivery address needs refresh
+        $FuelQuoteValid->DeliveryAddress = "63463 Random Address";
+        $invalidinput = $FuelQuoteValid->AllFieldsValid($GR,$DA,$DD,$PPpG,$TAD);
+
+        $this->assertFalse($invalidinput);
+        
+        $FuelQuoteInvalid = new ValidateFuelQuote ("a", "$12345 Random Address", "2019-08-10", "b", "c");
         $GR1 = $FuelQuoteInvalid->validateGallonsRequested();
         $DA1= $FuelQuoteInvalid->validateDeliveryAddress();
         $DD1 = $FuelQuoteInvalid->validateDeliveryDate();
@@ -76,13 +84,6 @@ class ValidateFuelQuoteTest extends TestCase
         $TAD1 = $FuelQuoteInvalid->validateTotalAmountDue();
         $invalidinput = $FuelQuoteInvalid->AllFieldsValid($GR1,$DA1,$DD1,$PPpG1,$TAD1);
 
-        $this->assertTrue($validinput);
-        $this->assertFalse($invalidinput);
-    }
-
-    public function testAddEntry()
-    {
-        $result = AddEntry(1,2,3,4,5);
-        $this->assertEmpty ($result);
+        $this->assertEmpty($invalidinput);
     }
 }

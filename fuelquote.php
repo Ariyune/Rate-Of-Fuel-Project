@@ -1,3 +1,12 @@
+<?php
+    if(!isset($_SESSION))
+    {
+        session_start();
+    }
+include_once "ValidateProfileManage.php";
+include_once "ValidateFuelQuote.php";
+include_once "UpdateHistory.php";
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -11,13 +20,18 @@
 
     <header>
       <div class = "topnav"> <!--top navigation bar-->
-        <a href="profileDisplay.php">Profile Management</a>
-        <a href="index.php"><img src= "icon.png"></a>
-        <a href="fuelquote.php">Fuel Quote</a>
-        <a href="AboutUs.html">About Us</a>
+        <?php if(isset($_SESSION["useruid"])) {
+                echo "<a href='profileDisplay.php'>Profile Management</a>";
+                echo "<a href='AboutUs.php'><img src= 'icon.png'></a>";
+                echo "<a href='fuelquote.php'>Fuel Quote</a>";
+                echo "<a href='logout.php'>Logout</a>";
+              }
+              else {
+                echo  "<a href='index.php'>Log in</a>";
+              }
+        ?>
       </div>
-      <h1>Fuel Quote</h1>
-    </header>
+     </header>
 
     <div class="form"> <!--contains all form fields-->
       <form id="fuel-form" method = "post">
@@ -27,11 +41,13 @@
             </div>
             <div>
               <label>Gallons Requested: </label>
-              <input type="number" id = "GallonsRequested" name = "GallonsRequested" required>
+              <input type="number" id = "GallonsRequest" name = "GallonsRequested" required>
             </div>
             <div>
               <label>Delivery Address: </label>
-              <input type="text" id = "DeliveryAddress" name = "DeliveryAddress" readonly value = "Random Address 12345">
+              <input type='text' id = 'DeliveryAddress' name = 'DeliveryAddress' readonly value = "<?php $test = new getDeliveryAddress();
+                                                                                                         echo $test->getDeliveryAddress();
+                                                                                                    ?>">
             </div>
             <div>
               <label>Delivery Date: </label>
@@ -39,14 +55,19 @@
             </div>
             <div>
               <label>Suggested Price / gallon: </label>
-              <input type="number" id = "SuggestedPriceperGallon" name = "SuggestedPriceperGallon" readonly value = 2>
+              <div class = "SuggestedPriceperGallon">
+                <input type="number" id = "SuggestedPriceperGallon" name = "SuggestedPriceperGallon" readonly>
+              </div>
             </div>
             <div>
               <label>Total Amount Due: </label>
-              <input type="number" id= "TotalAmountDue" name= "TotalAmountDue" readonly value = 4>
+              <div class = "TotalAmountDue">
+                <input type="number" id= "TotalAmountDue" name= "TotalAmountDue" readonly>
+              </div>
             </div>
             <div class = "button">
-              <input type = "submit" class = "submitbtn" name = "submit" value = "Submit" >
+              <input type = "submit" class = "getquotebtn" value = "Get Quote" disabled = "disabled">
+              <input type = "submit" class = "submitbtn" value = "Submit" disabled = "disabled">
             </div>
           </fieldset>
       </form>
@@ -64,16 +85,36 @@
             <th>Suggested Price / gallon</th>
             <th>Total Amount Due</th>
           </tr>
+          <?php $test1 = new UpdateHistory();
+                $test1->UpdateHistory();
+           ?>
         </thead>
       </table>
     </div>
 
-     <?php class PricingModule {
-     } //not implemented yet; Last assignment
-     ?>
-
      <script src = "jquery.js"></script>
      <script>
+       $(".getquotebtn").click(function(e) {
+         e.preventDefault();
+
+         $.ajax({
+           type: "post",
+           url: "CallValidateGetQuote.php",
+           data: $("#fuel-form").serialize(),
+           success: function(data) {
+
+             if (data == true) {
+                 getSuggestedPrice();
+             }
+
+             else {
+                 $(".error").empty(); //clears out error message above
+                 $(".error").append(data);
+             }
+           }
+         });
+       });
+
       $(".submitbtn").click(function(e) {
         e.preventDefault();
 
@@ -84,7 +125,7 @@
           success: function(data) {
 
             if (data == true) {
-              ajaxUpdateFuelHistory ();
+                $("#fuel-form").submit();
             }
 
             else {
@@ -95,15 +136,73 @@
         });
       });
 
-      function ajaxUpdateFuelHistory () {
+      function getSuggestedPrice () {
         $.ajax({
           type: "post",
-          url: "FuelQuoteHistoryEntry.php",
+          url: "CallPricingModuleSuggestedPrice.php",
           data: $("#fuel-form").serialize(),
           success: function(data) {
-            $("#fuel-history").append(data);
+              $(".error").empty();
+              $(".SuggestedPriceperGallon").empty(); //clears out error message above
+              $(".SuggestedPriceperGallon").append(data); //clears out error message above
+              getTotalAmountDue();
           }
         });
+      }
+
+      function getTotalAmountDue () {
+        $.ajax({
+          type: "post",
+          url: "CallPricingModuleTotalAmountDue.php",
+          data: $("#fuel-form").serialize(),
+          success: function(data) {
+              $(".TotalAmountDue").empty(); //clears out error message above
+              $(".TotalAmountDue").append(data); //clears out error message above
+          }
+        });
+      }
+
+      $("#GallonsRequest").keyup(function() {
+          if (keystroke() == false) {
+              $(".getquotebtn").removeAttr('disabled');
+          }
+          else {
+              $(".getquotebtn").attr("disabled", "disabled");
+          }
+      });
+
+      $("#DeliveryDate").on("keyup change", function() {
+          if (keystroke() == false) {
+              $(".getquotebtn").removeAttr('disabled');
+              $(".submitbtn").removeAttr('disabled');
+          }
+          else {
+              $(".submitbtn").attr("disabled", "disabled");
+          }
+        });
+
+      function keystroke () {
+          var empty = true;
+          var GallonsEntered = false;
+          var DeliveryAddressEntered = false;
+          var DeliveryDateEntered = false;
+
+          if ($("#GallonsRequest").val()) {
+              GallonsEntered = true;
+          }
+          if ($("#DeliveryAddress").val()) {
+              DeliveryAddressEntered = true;
+          }
+          if ($("#DeliveryDate").val()) {
+              DeliveryDateEntered = true;
+          }
+
+          if (GallonsEntered && DeliveryAddressEntered && DeliveryDateEntered) {
+              return empty = false;
+          }
+          else {
+              return empty = true;
+          }
       }
 
      </script>
