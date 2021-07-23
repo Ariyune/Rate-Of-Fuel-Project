@@ -22,7 +22,7 @@
     <h1 style="text-align: center;">Profile Management</h1>
 
     <div class="information">
-        <form action = "profileDisplay.html" id="ProfileManage" method="post">
+        <form action = "./profileDisplay.php" id="ProfileManage" method="post">
             <div class = "error"></div>
             <h3 style="font-size: x-large;">Edit Personal Information</h3>
             <div class="flex-container">

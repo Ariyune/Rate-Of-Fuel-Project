@@ -3,7 +3,7 @@
 function getInformation() {
     
     $db = mysqli_connect("localhost", "root", "", "fueldb");
-    $query = "SELECT * FROM clientinformation WHERE id = 1";
+    $query = "SELECT * FROM clientinformation WHERE usersId = 1";
     $result = mysqli_query($db, $query);
 
     while ($row = mysqli_fetch_array($result)) {

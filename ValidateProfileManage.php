@@ -128,6 +128,8 @@
 
         public function AllFieldsValid($NameValid, $firstAddressValid, $secondAddressValid, $CityValid, $StateValid, $ZipValid) {
             if($NameValid && $firstAddressValid && $secondAddressValid && $CityValid && $StateValid && $ZipValid) {
+                require_once("./updateProfile.php");
+                updateProfile($this->Name, $this->FirstAddress, $this->SecondAddress, $this->City, $this->State, $this->Zip);
                 echo true;
                 return true;
             }
