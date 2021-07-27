@@ -51,7 +51,7 @@ include_once "UpdateHistory.php";
             </div>
             <div>
               <label>Delivery Date: </label>
-              <input type="date" id = "DeliveryDate" name = "DeliveryDate">
+              <input type="date" id="DeliveryDate" name = "DeliveryDate" min="<?php echo date("Y-m-d"); ?>">
             </div>
             <div>
               <label>Suggested Price / gallon: </label>
